@@ -11,6 +11,7 @@ post "/" do
   consumer_secret = ENV["CSECRET"]
   access_token = ENV["ATOKEN"]
   access_secret = ENV["ASECRET"]
+  room_id = ENV["ROOMID"]
 
   consumer = OAuth::Consumer.new(consumer_token, consumer_secret, :site => "https://www.youroom.in")
   access = OAuth::AccessToken.new(consumer, access_token, access_secret)
@@ -21,7 +22,7 @@ post "/" do
   logger = env['rack.errors']
   logger.write request.body.read
 
-  resp = access.post('https://www.youroom.in/r/308/entries?format=json', { "entry[content]" => "#pivotal\n\n#{content}" })
+  resp = access.post("https://www.youroom.in/r/#{room_id}/entries?format=json", { "entry[content]" => "#pivotal\n\n#{content}" })
   logger.write "-" * 30
   logger.write resp.to_s
   resp
