@@ -2,6 +2,7 @@ require "rubygems"
 require "sinatra"
 require "oauth"
 require 'hpricot'
+require "cgi"
 
 set :logging, true
 
@@ -14,7 +15,7 @@ post "/" do
   consumer = OAuth::Consumer.new(consumer_token, consumer_secret, :site => "https://www.youroom.in")
   access = OAuth::AccessToken.new(consumer, access_token, access_secret)
 
-  doc = Hpricot(request.body.read)
+  doc = Hpricot(CGI.unescapeHTML(request.body.read))
   content = doc.at('activity').at('description').innerHTML
 
   logger = env['rack.errors']
