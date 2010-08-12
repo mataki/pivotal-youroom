@@ -21,7 +21,7 @@ post "/" do
   logger = env['rack.errors']
   logger.write request.body.read
 
-  resp = access.post('https://www.youroom.in/r/308/entries?format=json', { "entry[content]" => content })
+  resp = access.post('https://www.youroom.in/r/308/entries?format=json', { "entry[content]" => "#pivotal\n\n#{content}" })
   logger.write "-" * 30
   logger.write resp.to_s
   resp
