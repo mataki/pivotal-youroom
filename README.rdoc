@@ -1,0 +1,32 @@
+= Setup
+
+== Get youRoom API OAuth Tokens
+
+Consumer tokens is available from to post this form
+
+  https://spreadsheets.google.com/a/sonicgarden.jp/viewform?formkey=dEVHeWx0MUdhbDJ3M3VQamY1RnJmcFE6MA
+
+Accesss tokens is issued by hand to run this program
+
+  http://gist.github.com/476393
+
+== Setup server on heroku
+
+  git clone git://github.com/mataki/pivotal-youroom.git
+  heroku create
+  git push master heroku
+  heroku config:add CTOKEN=consumer_token
+  heroku config:add CSECRET=consumer_secret
+  heroku config:add ATOKEN=access_token
+  heroku config:add ASECRET=acdess_secret
+  heroku config:add ROOMID=target_room_id
+
+== Setup webhook on pivotal-tracker
+
+Access your project's integration setting page
+
+  https://www.pivotaltracker.com/projects/[ID]/integrations
+
+And set "Web Hook URL" on "Activity Web Hook" to heroku service url that is available to access with the command.
+
+  heroku info
